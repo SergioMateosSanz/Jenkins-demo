@@ -11,16 +11,16 @@ pipeline {
                sh 'mvn test' 
             }
         }
-      post {
-        always {
-            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-            junit 'build/reports/**/*.xml'
-        }
-      }
       stage('Build') { 
             steps { 
                sh 'mvn package -Dmaven.test.skip=true' 
             }
         }
     }
+    post {
+        always {
+            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+            junit 'build/reports/**/*.xml'
+        }
+      }
 }
